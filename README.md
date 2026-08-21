@@ -1,109 +1,102 @@
-# KisanSetu
+# KisanKavach — AI Trust & Verification Layer
 
-**One trust layer. Two outcomes: fraud caught, farmers protected.**
+KisanKavach is an AI-powered trust and verification layer for agricultural farmer benefit programs. It provides role-based views for farmers, verification officers, and an audit trail, backed by a simulated blockchain ledger. No real personal data is stored — all data in this project is mocked for demonstration purposes.
 
-KisanSetu is an AI-powered trust layer for agricultural welfare distribution. It sits between farmer applications and government benefit systems — scoring every claim for fraud risk while giving genuine but under-documented farmers (like tenants without formal land titles) an alternate path to verification instead of automatic rejection. Every decision is recorded on a tamper-evident blockchain ledger, so approvals, reviews, and payouts stay fully auditable without exposing sensitive personal data.
+## Features
 
-Built to plug into existing subsidy and insurance workflows — not replace them.
+- **Farmer Portal** — farmer-facing view for submitting and tracking benefit applications
+- **Officer Desk** — verification and review workflow for officers
+- **Audit Ledger** — simulated blockchain-style ledger for transparent record-keeping
+- Role-based navigation via the top bar
+- Responsive layout, built with Tailwind CSS
+- Charts via Recharts, icons via Lucide
 
----
+## Tech Stack
 
-## The problem
+- [React 18](https://react.dev/) + [TypeScript](https://www.typescriptlang.org/)
+- [Vite](https://vitejs.dev/) — build tool and dev server
+- [Tailwind CSS](https://tailwindcss.com/) — styling
+- [Recharts](https://recharts.org/) — data visualization
+- [Lucide React](https://lucide.dev/) — icons
+- [canvas-confetti](https://www.npmjs.com/package/canvas-confetti) — celebratory UI effects
+- [Supabase JS client](https://supabase.com/docs/reference/javascript) — included as a dependency for future backend integration (not currently wired up; the app runs entirely on mock data)
 
-India's subsidy and crop-insurance systems have a strange failure mode: they're both too loose and too strict at the same time.
+## Prerequisites
 
-- **Leakage** — duplicate claims, inconsistent records, and no single view of a claim across departments let fraud hide in the gaps.
-- **Exclusion** — genuine tenant and small farmers without clean land-title paperwork get rejected the same way a fraudulent claim would.
+- [Node.js](https://nodejs.org/) 18 or later
+- npm (comes with Node.js)
 
-Current systems are good at checking boxes. They're bad at judging context. A missing document and a forged document look identical to a rule-based check — even though they mean completely different things for the person behind the claim.
+## Getting Started
 
-## The solution
+1. **Clone the repository**
 
-KisanSetu asks a second question that today's systems never ask: *if a claim isn't valid, is that fraud — or just a farmer who can't prove what's actually true?*
+   ```bash
+   git clone https://github.com/YOUR-USERNAME/YOUR-REPO.git
+   cd YOUR-REPO
+   ```
 
-1. **Verify** — build a Kisan Trust Profile from farmer, land/tenancy, crop, and benefit data.
-2. **Analyze** — an AI model scores eligibility and fraud risk across multiple signals, and explains every flag.
-3. **Review** — low-risk claims move fast; flagged claims go to a human reviewer instead of being auto-rejected.
-4. **Prove** — every approval, review, and payout is written to a tamper-evident blockchain ledger.
+2. **Install dependencies**
 
-## Key features
+   ```bash
+   npm install
+   ```
 
-- **AI trust & risk engine** — eligibility, fraud scoring, duplicate/anomaly detection, with explainable reasoning behind every flag
-- **Inclusive farmer verification** — alternate proof paths for landless cultivators and tenant farmers; human review for uncertain cases
-- **Blockchain trust ledger** — tamper-evident verification and payment history; sensitive personal data stays off-chain
-- **Transparent benefit tracking** — farmer and government dashboards showing status from submission to payout
+3. **Start the development server**
 
-## Tech stack
+   ```bash
+   npm run dev
+   ```
 
-| Layer | Technology |
-|---|---|
-| Frontend | React / Next.js |
-| Backend | Python / FastAPI |
-| AI | Python + Scikit-learn |
-| Blockchain | Solidity + EVM Testnet |
-| Storage | Encrypted DB + IPFS |
-| Identity | Verifiable Credentials / DIDs |
+   Open the URL printed in the terminal (usually [http://localhost:5173](http://localhost:5173)) to view the app. The dev server supports hot module reloading.
 
-## Architecture
+## Available Scripts
 
-```
-Farmer Input → AI Trust Engine → Human Verification → Blockchain Trust Layer → Benefit Tracking
-```
+| Command            | Description                                              |
+|---------------------|------------------------------------------------------------|
+| `npm run dev`       | Start the Vite development server                          |
+| `npm run build`     | Type-check and build an optimized production bundle to `dist/` |
+| `npm run preview`   | Locally preview the production build                       |
+| `npm run lint`      | Run ESLint over the codebase                                |
+| `npm run typecheck` | Run the TypeScript compiler in no-emit mode to check types |
 
-Farmer submits claim details and evidence → AI scores plausibility and fraud risk → flagged claims route to an officer for review (never auto-rejected) → approved claims and their full decision trail are logged on-chain → payout status is tracked and visible end to end.
-
-## Impact
-
-| Today | With KisanSetu |
-|---|---|
-| Manual, fragmented verification | AI-assisted, explainable checks |
-| Fraud caught after the fact | Anomalies flagged early |
-| Genuine farmers can get excluded | Alternate paths for the undocumented |
-| Little audit visibility | Tamper-evident trail, end to end |
-
-## Scalability
-
-Starts with crop insurance and farmer subsidies. Same trust layer extends to PM-KISAN, disaster relief, fertilizer subsidy, MSP support, and other public welfare schemes.
-
-## Getting started
-
-```bash
-# Clone the repo
-git clone https://github.com/<your-org>/kisansetu.git
-cd kisansetu
-
-# Backend
-cd backend
-pip install -r requirements.txt --break-system-packages
-uvicorn main:app --reload
-
-# Frontend
-cd frontend
-npm install
-npm run dev
-
-# Smart contracts
-cd contracts
-npm install
-npx hardhat compile
-npx hardhat test
-```
-
-## Project structure
+## Project Structure
 
 ```
-kisansetu/
-├── frontend/       # React / Next.js farmer & officer dashboards
-├── backend/        # FastAPI orchestration layer
-├── ai-engine/       # Fraud risk & plausibility scoring model
-├── contracts/       # Solidity smart contracts (claim ledger, payout triggers)
-└── docs/            # Architecture notes, pitch deck, diagrams
+src/
+├── components/
+│   ├── TopBar.tsx          # Top navigation, role switcher, scenario presets
+│   ├── farmer/              # Farmer Portal views
+│   ├── officer/              # Officer Desk views
+│   ├── ledger/                # Audit Ledger view
+│   └── ui/                    # Shared UI primitives
+├── lib/
+│   ├── store.tsx             # App-wide state (React context)
+│   ├── mockData.ts           # Mock/demo data
+│   ├── farmerForm.ts         # Farmer form logic/schema
+│   ├── types.ts               # Shared TypeScript types
+│   └── utils.ts                # Utility helpers
+├── App.tsx                    # Root component and layout
+├── main.tsx                   # App entry point
+└── index.css                  # Global styles / Tailwind entry
 ```
 
-## Team
+## Deployment
 
-[Team name / ID / college — fill in]
+This is a static Vite app and can be deployed to any static hosting provider (Vercel, Netlify, GitHub Pages, etc.).
+
+### Deploying to Vercel via GitHub
+
+1. Push this repository to GitHub.
+2. Sign in to [Vercel](https://vercel.com/) with your GitHub account.
+3. Click **Add New → Project** and select this repository.
+4. Vercel auto-detects the Vite framework preset:
+   - Build Command: `npm run build` (or `vite build`)
+   - Output Directory: `dist`
+   - Install Command: `npm install`
+5. Click **Deploy**. Every subsequent push to the main branch will trigger an automatic redeploy.
+
+No environment variables are required to run the app as-is, since it currently runs on mock data.
 
 ## License
 
-[Add license, e.g. MIT]
+No license specified. Add a `LICENSE` file if you intend to open-source this project.
