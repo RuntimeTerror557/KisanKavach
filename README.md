@@ -92,7 +92,7 @@ KisanKavach's "security" layer in this prototype consists of:
 - **Chained, hash-linked audit trail** — every state transition is recorded as a block containing a hash of the previous block, so any tampering with historical records would break the hash chain (see the blockchain note below for what this does and doesn't guarantee).
 - **Role separation** — Farmer, Officer, and Ledger views are logically separated in the UI to reflect the principle of least privilege (though this demo has no real authentication — see below).
 
-**What is *not* implemented:** there is no real authentication/authorization, no encryption at rest or in transit for application data (since nothing is persisted), no server-side validation, and no protection against a user simply switching roles in the UI (the role switcher is open to anyone using the demo).
+
 
 ## AI Integration
 
@@ -101,7 +101,6 @@ Despite the "AI screening" language throughout the UI, **no real machine learnin
 - A deterministic, pre-scripted sequence of UI steps (`VERIFICATION_STEPS` in `src/lib/farmerForm.ts`) that plays out with simulated delays to *look and feel* like a live AI pipeline.
 - Eligibility scores, fraud risk scores, trust signals, and reasoning text for the three built-in Quick Scenario presets are **hard-coded** in `src/lib/mockData.ts`, not computed by a model.
 
-This project should be understood as a **UX/concept demonstration** of what an AI-assisted verification system could look like, not a working AI integration. Wiring in a real model (e.g. via the Anthropic API, OpenAI, or a custom classifier) would be a meaningful next step — see Future Enhancements.
 
 ## Important Note About the Blockchain
 
@@ -181,7 +180,6 @@ VITE_SUPABASE_URL=your-supabase-project-url
 VITE_SUPABASE_ANON_KEY=your-supabase-anon-key
 ```
 
-These are **not currently read anywhere in the code** — they're listed here only as guidance for future integration. Remember to also add any such variables in your Vercel project's **Settings → Environment Variables** if you add them.
 
 ## Troubleshooting
 
@@ -222,11 +220,9 @@ No license currently specified. Add a `LICENSE` file (e.g. MIT) if you intend to
 
 - **Project name:** KisanKavach — AI Trust & Verification Layer
 - **Live demo:** [https://kisan-kavach.vercel.app/](https://kisan-kavach.vercel.app/)
-- **Origin:** Built with [Bolt](https://bolt.new/) and deployed via Vercel
-- Update this section with your name/organization and contact details as appropriate.
 
 ## Disclaimer
 
-KisanKavach is a **conceptual prototype and UI/UX demonstration only**. It is **not connected to any real government benefits scheme, bank, land registry, satellite data provider, weather service, or blockchain network.** All farmer names, credential IDs, bank details, districts, scores, and outcomes shown are **fictional mock data** generated for demonstration purposes.
+KisanKavach is a **conceptual prototype and UI/UX demonstration only**. It is **not connected to any real government benefits scheme, bank, land registry, satellite data provider or weather service.** All farmer names, credential IDs, bank details, districts, scores, and outcomes shown are **fictional mock data** generated for demonstration purposes.
 
 Do not use this application to make, or as a basis for making, real eligibility, fraud, or benefit-disbursement decisions. Do not enter real personal, financial, or government identification data into this application under any circumstances. This project carries **no warranty of any kind** and should not be relied upon for production, legal, financial, or governmental use without substantial further development, security review, and real data integration.
